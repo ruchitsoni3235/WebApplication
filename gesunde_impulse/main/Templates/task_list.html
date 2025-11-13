@@ -1,0 +1,23 @@
+{% load static %}
+<html>
+<head>
+  <link rel="stylesheet" href="{% static 'main/style.css' %}">
+  <title>My Tasks</title>
+</head>
+<body>
+  <h1>Task List</h1>
+  <ul>
+    {% for task in tasks %}
+      <li>
+        {% if task.completed %}
+          ✅ {{ task.name }}
+        {% else %}
+        <a href="{% url 'completed_tasks' task.id %}">{{ task.name }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p><a href="{% url 'home' %}">View RadarChart</a></p>
+</body>
+</html>

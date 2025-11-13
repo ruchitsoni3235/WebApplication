@@ -1,0 +1,58 @@
+/* Style Sheet */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 20px;
+}
+
+/* Headings */
+h1 {
+  color: #2c3e50;
+}
+
+/* Task list styling */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: #ecf0f1;
+  margin: 8px 0;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+li a {
+  text-decoration: none;
+  color: #2980b9;
+  font-weight: bold;
+}
+
+li:hover {
+  background: #d0e6f7;
+}
+
+/* Button style */
+a.button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 8px 12px;
+  background: #27ae60;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+a.button:hover {
+  background: #2ecc71;
+}
+
+/* Radar chart canvas styling */
+canvas {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+}

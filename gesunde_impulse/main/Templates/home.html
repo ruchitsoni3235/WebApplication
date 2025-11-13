@@ -1,0 +1,45 @@
+{% load static %}
+<html>
+<head>
+  <title>Radar Chart Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="{% static 'main/style.css' %}">
+
+</head>
+<body>
+  <h1>Radar Chart</h1>
+
+  <canvas id="radarChart" width="400" height="400"></canvas>
+
+  <script>
+    const labels = [{% for s in skills %}'{{ s.name }}',{% endfor %}];
+    const data = [{% for s in skills %}{{ s.level }},{% endfor %}];
+
+    new Chart(document.getElementById('radarChart'), {
+      type: 'radar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Skill Levels',
+          data: data,
+          fill: true,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgb(54, 162, 235)',
+          pointBackgroundColor: 'rgb(54, 162, 235)',
+        }]
+      },
+      options: {
+        elements: { line: { borderWidth: 2 } },
+        scales: {
+          r: {
+            beginAtZero: true,
+            max: 10
+          }
+        }
+      }
+    });
+  </script>
+
+  <p><a href="{% url 'task_list' %}">Back to Tasks</a></p>
+</body>
+</html>
