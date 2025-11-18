@@ -1,166 +1,224 @@
-# Gesunde Impulse Web Application
+# Gesunde Impulse
 
-## 🌱 Overview
-This Django-based web application was developed as a **warm-up project** for **Gesunde Impulse**.  
-The concept demonstrates how a person can develop **skills** and **attributes** through **completing tasks**, visualized dynamically using a radar chart.
+A Django-based personal development app that uses **Tasks**, **Skills**, and **Attributes** to visualize your growth with a dynamic **Radar Chart**.
 
----
+This README includes:
 
-## 💡 Concept
-- A **person has tasks** – completing them increases skills.  
-- A **person has skills** – skills influence and level up attributes.  
-- A **person has attributes** – these represent personal growth areas such as strength, endurance, intelligence, creativity, etc.
-
-This web app helps visualize growth and learning through everyday actions.
+* Project overview
+* Features
+* Technology stack
+* Installation guide (with a full **step-by-step Ubuntu setup**)
+* Usage instructions
 
 ---
 
-## Features
-**Task List**  
-- Displays all available tasks as clickable items.  
-- Each task can be marked as **completed**.  
+## 🚀 Project Overview
 
-**Dynamic Progress System**  
-- Completing a task increases the **related skill**.  
-- Each skill contributes to its corresponding **attribute**.  
-- Relationships and level increments are **fully configurable** via the Django Admin interface.
-
-**Radar Chart Visualization**  
-- Shows an interactive chart of **skills and attributes**.  
-- Automatically updates as tasks are completed.  
-
- **User-Configurable Relationships**  
-- Each task → skill → attribute link and level increment can be customized in the admin panel.  
+**Gesunde Impulse** helps you track and improve personal growth through a gamified system of tasks, skill progression, and attribute development. Completing tasks increases the associated skills and attributes, and updates a radar chart visualization in real time.
 
 ---
 
-## 🏗️ Project Structure
+## 🧰 Features
 
-gesunde_impulse/
-├── manage.py
-├── db.sqlite3
-├── gesunde_impulse/
-│ ├── settings.py
-│ ├── urls.py
-│ ├── wsgi.py
-│ └── asgi.py
-└── main/
-├── admin.py
-├── apps.py
-├── models.py
-├── urls.py
-├── views.py
-├── Templates/
-│ ├── home.html
-│ └── task_list.html
-├── static/
-│ └── main/
-│ └── style.css
-└── migrations/
+### ✅ Task System
 
-yaml
-Copy code
+* Add tasks via the admin panel
+* Each task contributes to a specific **Skill**
+* Completing tasks automatically updates the skill and attribute levels
+
+### 📊 Radar Chart Visualization
+
+* Inner ring: **Skill Levels**
+* Outer ring: **Attribute Levels**
+* Automatically re-renders when tasks are completed
+
+### 🧠 Admin Customization
+
+* Configure relationships between **Tasks → Skills → Attributes**
+* Set increment values for precise control
+* Edit skill/attribute details in real time
 
 ---
 
-## ⚙️ Installation & Setup
+## 🛠️ Technologies Used
 
-### 1️⃣ Clone or Download
+* **Python 3.10+**
+* **Django 5.x**
+* **Matplotlib** (radar chart generation)
+* **HTML5 / CSS3**
+* **SQLite3** (default database)
+
+---
+
+## 🖥️ Step-by-Step Installation Guide (Ubuntu)
+
+Below is a complete setup guide for Ubuntu 20.04 / 22.04 / 24.04.
+
+---
+
+## 1️⃣ Update Packages
+
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+---
+
+## 2️⃣ Install Required System Dependencies
+
+Matplotlib needs several low-level packages:
+
+```bash
+sudo apt install -y \
+  python3 python3-venv python3-pip python3-dev build-essential \
+  libfreetype6-dev libpng-dev pkg-config libjpeg-dev zlib1g-dev tk-dev
+```
+
+---
+
+## 3️⃣ Clone the Repository
+
 ```bash
 git clone https://github.com/your-username/gesunde_impulse.git
 cd gesunde_impulse
-2️⃣ Create Virtual Environment
-bash
-Copy code
-python -m venv venv
-source venv/bin/activate      # on macOS/Linux
-venv\Scripts\activate         # on Windows
-3️⃣ Install Dependencies
-bash
-Copy code
+```
+
+---
+
+## 4️⃣ Create & Activate a Virtual Environment
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Upgrade pip:
+
+```bash
+pip install --upgrade pip
+```
+
+---
+
+## 5️⃣ Install Python Dependencies
+
+If you have a `requirements.txt`, use it:
+
+```bash
+pip install -r requirements.txt
+```
+
+Otherwise install manually:
+
+```bash
 pip install django matplotlib
-4️⃣ Run Migrations
-bash
-Copy code
+```
+
+> **Important for servers:** Matplotlib must use a headless backend.
+> Add this before any pyplot imports:
+
+```python
+import matplotlib
+matplotlib.use('Agg')
+```
+
+---
+
+## 6️⃣ Run Database Migrations
+
+```bash
 python manage.py makemigrations
 python manage.py migrate
-5️⃣ Create Superuser (for admin access)
-bash
-Copy code
+```
+
+---
+
+## 7️⃣ Create a Superuser
+
+```bash
 python manage.py createsuperuser
-6️⃣ Run the Development Server
-bash
-Copy code
+```
+
+Follow the prompts.
+
+---
+
+## 8️⃣ Collect Static Files (optional)
+
+```bash
+python manage.py collectstatic --noinput
+```
+
+---
+
+## 9️⃣ Run the Development Server
+
+Local development:
+
+```bash
 python manage.py runserver
-🧠 How It Works
-Go to the Admin Panel (/admin)
+```
 
-Add Attributes, Skills, and Tasks
+Access on LAN:
 
-Configure their relationships and increment values
+```bash
+python manage.py runserver 0.0.0.0:8000
+```
 
-Open /tasks/ to view the Task List
+Visit:
 
-Click on tasks to mark them complete
+* App → [http://localhost:8000/](http://localhost:8000/)
+* Admin → [http://localhost:8000/admin/](http://localhost:8000/admin/)
 
-Open / (home) to view the Radar Chart update dynamically
+---
 
-🧰 Technologies Used
-Python 3.10+
+## 🔧 (Optional) Allow External Access
 
-Django 5.x
+If UFW firewall is active:
 
-Matplotlib (for radar chart visualization)
+```bash
+sudo ufw allow 8000/tcp
+```
 
-HTML5, CSS3
+---
 
-SQLite3 (default database)
+## 🧠 How It Works
 
-🎨 UI Overview
-🗒️ Task List
-Displays all tasks:
+### Admin Panel (/admin)
 
-✅ Completed tasks show a checkmark.
+1. Add **Attributes** (e.g., Strength, Focus)
+2. Add **Skills** linked to attributes (e.g., Weightlifting, Study Habits)
+3. Add **Tasks** linked to skills (e.g., "Read 20 pages", "Gym Session")
+4. Set increment values for each
 
-⏳ Incomplete tasks can be clicked to mark as completed.
+### User App
 
-📈 Radar Chart
-Displays:
+* Open `/tasks/` → See task list
+* Click task → Marks completed and updates stats
+* Open `/` → See updated radar chart
 
-Skill levels (inner ring)
+---
 
-Attribute levels (outer ring)
+## 🎮 Optional Ideas for Expansion
 
-Automatically updates on task completion.
+* XP / Level system
+* Badges and achievements
+* Streak tracking
+* User accounts and profiles
 
-🧑‍💻 Code Highlights
-models.py
-Defines three main entities:
+---
 
-Task → connected to Skill
+## 📄 License
 
-Skill → connected to Attribute
+Add your license here (MIT recommended).
 
-Both contain increment fields for configurability.
+---
 
-views.py
-Handles:
+If you want, I can also create a:
 
-Task completion logic
+* **Dockerfile**
+* **docker-compose.yml**
+* **nginx + gunicorn production setup**
+* **requirements.txt**
 
-Dynamic skill and attribute updates
-
-Rendering of radar chart and task list
-
-admin.py
-Allows easy configuration of:
-
-Relationships
-
-Level increments
-
-Real-time editing of skill and information of tasks
-
-Add gamification (XP, badges, levels)
-
-🧑‍💼
+Just let me know!
